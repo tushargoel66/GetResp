@@ -1,0 +1,33 @@
+<html>
+    <head>
+        <title>Get Response</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    </head>
+    <body>
+        <input type="text" id="che" placeholder="Enter the chassie Number!!" value="ka19p8488" required>
+        <input type="submit" value="Get" onclick="get()">
+        <div id="show"></div>
+    </body>
+    <script>
+        function get(){
+            var ans=document.getElementById('che').value
+            var div=document.getElementById('show')
+            jQuery.ajax({
+                url:'/get',
+                type:'get',
+                data:'data='+ans,
+                success:(res)=>{
+                    res=JSON.parse(res)
+                    div.innerHTML=`
+                        <p>Name: `+res['owner_name']+`
+                        <p>Insurance Upto: `+res['insurance_upto']+`</p>
+                        <p>Fuel Type: `+res['fuel_type']+`</p>
+                        <p>Make: `+res['maker___model'].split('/')[0]+`</p>
+                        <p>Model: `+res['maker___model'].split('/')[1]+`</p>
+
+                    `
+                }
+            })
+        }
+    </script>
+</html>
